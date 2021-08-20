@@ -2,8 +2,9 @@ from music21 import *
 import numpy as np
 path = "Piano G/"
 import os
+import random
 
-def convert_to_midi(prediction_output):
+def convert_to_midi(prediction_output, tempo):
     '''
     Converts our predicted output to notes and then writes it to a midi file
     '''
@@ -33,7 +34,7 @@ def convert_to_midi(prediction_output):
             new.storedInstrument = instrument.Piano()
             out.append(new)
 
-        offset += 0.5
+        offset += tempo 
 
     s= stream.Stream(out)
     s.write('midi', fp='music.mid')

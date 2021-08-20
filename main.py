@@ -170,6 +170,17 @@ x_dict = dict(x_dict)
 
 predicted_notes =[x_dict[i] for i in pred]
 
-convert_to_midi(predicted_notes)
+predicted_notes = np.array(predicted_notes)
 
+np.save("predictions.npy", predicted_notes)
+convert_to_midi(predicted_notes, 0.4)
+
+#Sheet music:
+from music21 import converter, environment
+import os
+environment.set('musescoreDirectPNGPath', 'C:\\Program Files\\MuseScore 3\\bin\\MuseScore3.exe')
+
+score = converter.parse('music.mid').chordify()
+
+print(score.show("musicxml.pdf"))
 print("Done")
